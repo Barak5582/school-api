@@ -1,0 +1,71 @@
+
+<html>
+<head>
+    <title>Manager Page</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+    <div class="header">
+        Manager Page
+        <div class="top-buttons">
+            <button onclick="window.history.back();">Go Back</button>
+            <button onclick="location.href='/';">Home</button>
+        </div>
+    </div>
+    <div class="container">
+
+
+        <h1>Welcome - School Manager</h1>
+
+        <h2> Good Morning manager, here you can see some info about school. </h2>
+        <h4> In total we have {{ teachers|length }} teachers right now. </h4>
+        <h4>  Right now we have {{ num_of_students }} students in our system, </h4>
+        <h4> {{ unregistered_students|length }} students are not taking any class </h4>
+
+
+        <div id="analytics-container">
+        <h2>numbers of student for each subject</h2>
+        <img src="data:image/png;base64,{{ school_analytics }}" alt="analytics graph">
+        </div>
+        <h2> Students and teachers by class </h2>
+<table>
+    <tr>
+        <th>Subject</th>
+        <th>Teacher</th>
+        <th>Students</th>
+    </tr>
+    {% for teacher in teachers %}
+    <tr>
+        <td>{{ teacher['subject'] }}</td>
+        <td>{{ teacher['name'] }}<br>
+            {{ teacher['email'] }}
+        </td>
+        <td class="scroll">
+            {% for student in children.get(teacher['subject'], []) %}
+                {{ student['first_name'] }} {{ student['last_name'] }}<br>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+        <br>
+        <h3> Unregistered Students </h3>
+<table>
+    <tr>
+        <th>Student Name</th>
+        <th>Email</th>
+    </tr>
+            <tbody>
+                {% for child in unregistered_students %}
+                <tr>
+                    <td>{{ child.first_name }} {{ child.last_name }}</td>
+                    <td>{{ child.email }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+            </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<html>
+<head>
+    <title>User Selection</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+    <div class="header">
+        Welcome Back
+    </div>
+    <h2> select your user type</h2>
+    <form action="/user" method="get">
+        <label for="userType">Choose a user type:</label>
+        <select name="userType" id="userType">
+            {% for user_type in user_types %}
+                <option value="{{ user_type }}">{{ user_type }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Go</button>
+    </form>
+</body>
+</html>

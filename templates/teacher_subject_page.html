@@ -1,0 +1,32 @@
+
+<html>
+<head>
+    <title>Teacher Page</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+    <div class="header">
+        Teacher Page
+                <div class="top-buttons">
+            <button onclick="window.history.back();">Go Back</button>
+            <button onclick="location.href='/';">Home</button>
+        </div>
+    </div>
+<div class="container">
+        <h1>Welcome Teacher</h1>
+        <div class="instruction">
+        To view your students, insert your subject.
+    </div>
+
+        <form action="/teacher-action" method="get">
+            <div class="input-group">
+                <label for="subject">Subject:</label>
+                <input type="text" name="subject" id="subject">
+            </div>
+            <p>You can either view or download the data as CSV file.</p>
+            <input class="action-button" type="submit" name="action" value="View">
+            <input class="action-button" type="submit" name="action" value="Download">
+        </form>
+    </div>
+</body>
+</html>

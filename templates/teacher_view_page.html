@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>Teacher Page</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="top-buttons">
+            <button onclick="window.history.back();">Go Back</button>
+            <button onclick="location.href='/';">Home</button>
+        </div>
+        Teacher Page
+    </div>
+    <div class="container">
+
+        <h1>Welcome {{ subject }} Teacher</h1>
+
+        <h3>Students taking this class</h3>
+        <table >
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Hobbies</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for child in children %}
+                <tr>
+                    <td>{{ child.first_name }} {{ child.last_name }}</td>
+                    <td>{{ child.email }}</td>
+                    <td>{{ child.hobbies|join(", ") }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

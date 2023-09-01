@@ -1,0 +1,42 @@
+
+<html>
+<head>
+    <title>Parent Page</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+    <div class="header">
+                <div class="top-buttons">
+            <button onclick="window.history.back();">Go Back</button>
+            <button onclick="location.href='/';">Home</button>
+        </div>
+        Parent Page
+    </div>
+
+    <div class="container">
+
+
+        <h1> {{ family }} Family</h1>
+
+        <h3>your children activities</h3>
+        <table>
+
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Hobbies</th>
+                </tr>
+
+            <tbody>
+                {% for child in children %}
+                <tr>
+                    <td>{{ child.first_name }} {{ child.last_name }}</td>
+                    <td>{{ child.email }}</td>
+                    <td>{{ child.hobbies|join(", ") }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

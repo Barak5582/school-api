@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title>Manager Page</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+    <div class="header">
+        Manager Page
+                <div class="top-buttons">
+            <button onclick="window.history.back();">Go Back</button>
+            <button onclick="location.href='/';">Home</button>
+        </div>
+    </div>
+    <div class="container">
+        <form action="/manager-action" method="get">
+            <p class="instruction">You can either view or download the data as CSV file.</p>
+            <input class="action-button" type="submit" name="action" value="View">
+            <input class="action-button" type="submit" name="action" value="Download">
+        </form>
+    </div>
+</body>
+</html>
