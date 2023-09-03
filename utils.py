@@ -17,10 +17,6 @@ app = FastAPI()
 USERNAME = 'shadif@nelson-si.com'
 PASSWORD = 'J79$Qjnw4&acpM2y'
 
-# Consts
-CSVFIELDS = {"children": ['first_name', 'last_name', 'email', 'hobbies'],
-             "teachers": ['name', 'email', 'phones', 'subject']}
-
 
 @app.get("/teachers")
 async def get_teachers():
@@ -181,16 +177,6 @@ def get_unregistered_students(children: dict) -> list:
 
 
 def download_csv(files: dict):
-    # for filetype, data in files.items():
-    #     filename = f"{filetype}.csv"
-    #     with open(filename, 'w', newline='') as csvfile:
-    #         fieldnames = CSVFIELDS.get(filetype)
-    #         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    #         writer.writeheader()
-    #         for record in data:
-    #             writer.writerow(record)
-    #
-    #     return FileResponse(filename, headers={"Content-Disposition": f"attachment; filename={filename}"})
     with pd.ExcelWriter('school_insights.xlsx', engine='openpyxl') as writer:
         # Loop through each data type to create a DataFrame
         for filetype, data in files.items():

@@ -62,14 +62,16 @@ async def parent_page(request: Request, family: str = None, action: str = None):
     teacher_data = await get_teachers()
     if family:
         children_data = [child for child in children_data if family.lower() == child.get("last_name").lower()]
-
     teachers = get_teachers_by_subjects(children=children_data, teachers=teacher_data)
 
     if action == 'View':
         return templates.TemplateResponse("parent_view_page.html",
-                                          {"request": request, "children": children_data, "family": family})
+                                          {"request": request,
+                                           "children": children_data,
+                                           "family": family,
+                                           "teachers": teachers})
     if action == 'Download':
-        return download_csv(files={"children": children_data, "teachers": teachers})
+        return download_csv(files={"children": children_data, "teachers": teachers.values()})
     else:
         return HTTPException(status_code=404, detail="Invalid action")
 
@@ -93,8 +95,10 @@ async def manager_page(request: Request, subject: str = None, action: str = None
                                                                        "num_of_students": num_of_students})
 
     if action == 'Download':
-        return download_csv(files={"teachers": teachers_data,
+        files_to_download = {"teachers": teachers_data,
                                    "children": children_data,
-                                   "unregistered_students": unregistered_students})
+                                   "unregistered_students": unregistered_students}
+        files_to_download.update(students_by_subjects)
+        return download_csv(files=files_to_download)
     else:
         return HTTPException(status_code=404, detail="Invalid action")

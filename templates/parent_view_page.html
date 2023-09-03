@@ -14,11 +14,8 @@
     </div>
 
     <div class="container">
-
-
         <h1> {{ family }} Family</h1>
-
-        <h3>your children activities</h3>
+        <h3>Your children activities</h3>
         <table>
 
                 <tr>
@@ -33,6 +30,30 @@
                     <td>{{ child.first_name }} {{ child.last_name }}</td>
                     <td>{{ child.email }}</td>
                     <td>{{ child.hobbies|join(", ") }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h3>Teachers</h3>
+        <table>
+                <tr>
+                    <th>Subject</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                </tr>
+            <tbody>
+                {% for teacher in teachers.values()%}
+                <tr>
+                    <td>{{ teacher.subject }}</td>
+                    <td>{{ teacher.name }}</td>
+                    <td>{{ teacher.email }}</td>
+                    <td>{% for item in teacher.phones %}
+                        {% for key, value in item.items() %}
+                            {{ key }}: {{ value }} </br>
+                        {% endfor %}
+                        {% endfor %}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
