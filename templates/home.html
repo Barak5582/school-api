@@ -5,17 +5,25 @@
 </head>
 <body>
     <div class="header">
-        Welcome Back
+         School Management App
     </div>
-    <h2> select your user type</h2>
-    <form action="/user" method="get">
-        <label for="userType">Choose a user type:</label>
-        <select name="userType" id="userType">
+    <div class="container">
+        <h2>Select your user type</h2>
+        <form action="/user" method="get" id="userSelectionForm">
             {% for user_type in user_types %}
-                <option value="{{ user_type }}">{{ user_type }}</option>
+            <button type="button" onclick="submitForm('{{ user_type }}')">
+                {{ user_type }}
+            </button>
             {% endfor %}
-        </select>
-        <button type="submit">Go</button>
-    </form>
+            <input type="hidden" name="userType" id="hiddenUserType">
+        </form>
+    </div>
+
+    <script>
+    function submitForm(userType) {
+        document.getElementById('hiddenUserType').value = userType;
+        document.getElementById('userSelectionForm').submit();
+    }
+    </script>
 </body>
 </html>

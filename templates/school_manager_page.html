@@ -15,11 +15,18 @@
     <div class="container">
 
 
-        <h1>Welcome - School Manager</h1>
-        <h2> Good Morning manager, here you can see some info about school. </h2>
-        <h4> In total we have {{ teachers|length }} teachers right now. </h4>
-        <h4>  Right now we have {{ num_of_students }} students in our system, </h4>
-        <h4> {{ unregistered_students|length }} students are not taking any class </h4>
+        <h1>Welcome, School Manager!</h1>
+        <h2>Good morning! Below are key insights about the school.</h2>
+        <h4>Total Teachers: <strong>{{ teachers|length }}</strong></h4>
+        <h4>Total Students: <strong>{{ num_of_students }}</strong></h4>
+        {% if unregistered_students|length == 1 %}
+          <h4><strong>{{ unregistered_students|length }}</strong> student is currently not enrolled in any class.</h4>
+        {% elif unregistered_students|length > 1 %}
+          <h4><strong>{{ unregistered_students|length }}</strong> students are currently not enrolled in any class.</h4>
+            <h4> they are {{ unregistered_students|length /  num_of_students * 100 }}% of the total students </h4>
+        {% else %}
+          <h4>All students are currently enrolled in classes.</h4>
+        {% endif %}
 
 
         <div id="analytics-container">
