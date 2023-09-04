@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from utils import (app, get_children, get_teachers, get_school_analytics, download_csv,
-                   handle_manager_view, get_unregistered_students, get_teachers_by_subjects)
+                   handle_manager_view, get_unregistered_students, get_teachers_by_subjects, get_hobby_pair_analytics)
 
 
 app.mount("/stylesheets", StaticFiles(directory="stylesheets"), name="static")
@@ -49,7 +49,7 @@ async def teacher_page(request: Request, subject: str = None, action: str = None
         return templates.TemplateResponse("teacher_view_page.html",
                                           {"request": request, "children": children_data, "subject": subject})
     if action == 'Download':
-       return download_csv(files={"children": children_data})
+        return download_csv(files={"children": children_data})
     else:
         return HTTPException(status_code=404, detail="Invalid action")
 
@@ -98,12 +98,14 @@ async def manager_page(request: Request, action: str = None):
 
     if action == 'View':
         school_analytics = get_school_analytics(children=children_data, teachers=teachers_data)
-        return templates.TemplateResponse("school_manager_page.html", {"request": request,
-                                                                       "children": students_by_subjects,
-                                                                       "teachers": teachers_data,
-                                                                       "school_analytics": school_analytics,
-                                                                       "unregistered_students": unregistered_students,
-                                                                       "num_of_students": num_of_students})
+        return templates.TemplateResponse("school_manager_page.html",
+                                          {"request": request,
+                                           "children": students_by_subjects,
+                                           "teachers": teachers_data,
+                                           "school_analytics": school_analytics,
+                                           "unregistered_students": unregistered_students,
+                                           "num_of_students": num_of_students,
+                                           "hobby_pairs": get_hobby_pair_analytics(children_data)})
 
     if action == 'Download':
         files_to_download = {"teachers": teachers_data,

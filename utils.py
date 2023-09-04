@@ -10,6 +10,9 @@ from io import BytesIO
 import csv
 import pandas as pd
 import os
+from itertools import combinations
+from collections import defaultdict
+from PIL import Image
 
 
 app = FastAPI(debug=True)
@@ -59,7 +62,9 @@ async def get_teachers():
             }
             teachers_list.append(teacher_dict)
 
-        return teachers_list
+        sorted_teachers_list = sorted(teachers_list, key=lambda x: x['name'])
+
+        return sorted_teachers_list
     else:
         return JSONResponse(content={"error": "Could not fetch data"}, status_code=500)
 
@@ -98,7 +103,10 @@ async def get_children():
             }
             children_list.append(child_dict)
 
-        return children_list
+        # Sort the list by 'first_name'
+        sorted_children_list = sorted(children_list, key=lambda x: x['first_name'])
+
+        return sorted_children_list
     else:
         return JSONResponse(content={"error": "Could not fetch data"}, status_code=500)
 
@@ -206,6 +214,51 @@ def get_unregistered_students(children) -> list:
         if not child.get("hobbies"):
             unregistered_students.append(child)
     return unregistered_students
+
+
+def get_hobby_pair_analytics(people):
+    """
+    Generates a bar chart visualization of hobby pair sums, sorted by value.
+    :param people: A list of dictionaries, each containing details of a person.
+    Returns:
+        str: A base64 encoded string of the generated plot image.
+    """
+    pair_sums = defaultdict(int)
+
+    for person in people:
+        hobbies = person['hobbies']
+        for pair in combinations(hobbies, 2):
+            sorted_pair = tuple(sorted(pair))
+            pair_sums[sorted_pair] += 1  # Replace with the actual number you want to associate with each pair.
+
+    # Sort by value
+    sorted_pair_sums = {k: v for k, v in sorted(pair_sums.items(), key=lambda item: item[1], reverse=True)}
+
+    # Prepare data
+    labels = [f"{pair[0]} & {pair[1]}" for pair in sorted_pair_sums.keys()]
+    data = [sum_value for sum_value in sorted_pair_sums.values()]
+
+    # Create a plot
+    fig, ax = plt.subplots(figsize=(15, 12))
+    ax.barh(labels, data)
+    ax.set_xlabel('Sum')
+    ax.set_title('Sum of Each Hobby Pair')
+
+    # Render the plot to a BytesIO object
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+
+    im = Image.open(buffer)
+    im_resized = im.resize((im.size[0] // 2, im.size[1] // 2))
+
+    buffer_resized = BytesIO()
+    im_resized.save(buffer_resized, format='PNG')
+
+    # Encode as base64
+    img = base64.b64encode(buffer_resized.getvalue()).decode()
+
+    return img
 
 
 def download_csv(files: dict) -> FileResponse:

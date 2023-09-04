@@ -13,8 +13,6 @@
         </div>
     </div>
     <div class="container">
-
-
         <h1>Welcome, School Manager!</h1>
         <h2>Good morning! Below are key insights about the school.</h2>
         <h4>Total Teachers: <strong>{{ teachers|length }}</strong></h4>
@@ -28,11 +26,13 @@
           <h4>All students are currently enrolled in classes.</h4>
         {% endif %}
 
-
         <div id="analytics-container">
         <h2>numbers of student for each subject</h2>
         <img src="data:image/png;base64,{{ school_analytics }}" alt="analytics graph">
+            <br>
         </div>
+    </div>
+    <div class="container">
         <h2> Students and teachers by class </h2>
 <table>
     <tr>
@@ -55,6 +55,8 @@
     {% endfor %}
 </table>
         <br>
+        </div>
+        <div class="container">
         <h3> Unregistered Students </h3>
 <table>
     <tr>
@@ -70,8 +72,13 @@
                 {% endfor %}
             </tbody>
         </table>
-
-
             </div>
+
+    <div class="container">
+        <div class="image-container">
+        <h2>Pairs Of Hobbies</h2>
+        <img src="data:image/png;base64,{{ hobby_pairs }}" alt="analytics graph">
+            </div>
+    </div>
 </body>
 </html>
