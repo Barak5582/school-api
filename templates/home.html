@@ -11,7 +11,7 @@
         <h2>Select your user type</h2>
         <form action="/user" method="get" id="userSelectionForm">
             {% for user_type in user_types %}
-            <button type="button" onclick="submitForm('{{ user_type }}')">
+            <button class= "home_page_buttons" type="button" onclick="submitForm('{{ user_type }}')">
                 {{ user_type }}
             </button>
             {% endfor %}

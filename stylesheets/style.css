@@ -101,6 +101,22 @@ button:active {
     transform: scale(0.98);
 }
 
+.home_page_buttons {
+    display: block;
+    width: 100%;
+    padding: 0.8em;
+    background-color: #1877f2;
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    flex: 1;
+    margin: 0.5em;
+
+}
+
 .input-group {
     display: flex;
     flex-direction: column;
