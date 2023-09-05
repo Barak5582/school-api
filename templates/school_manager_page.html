@@ -20,8 +20,8 @@
         {% if unregistered_students|length == 1 %}
           <h4><strong>{{ unregistered_students|length }}</strong> student is currently not enrolled in any class.</h4>
         {% elif unregistered_students|length > 1 %}
-          <h4><strong>{{ unregistered_students|length }}</strong> students are currently not enrolled in any class.</h4>
-            <h4> they are {{ unregistered_students|length /  num_of_students * 100 }}% of the total students </h4>
+          <h4><strong>{{ unregistered_students|length }}</strong> students are currently not enrolled in any class.
+           {{ unregistered_students|length /  num_of_students * 100 }}% of the total students</h4>
         {% else %}
           <h4>All students are currently enrolled in classes.</h4>
         {% endif %}
