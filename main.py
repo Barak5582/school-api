@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import Request, HTTPException
 import logging
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates

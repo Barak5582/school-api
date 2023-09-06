@@ -7,9 +7,7 @@ import logging
 import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
-import csv
 import pandas as pd
-import os
 from itertools import combinations
 from collections import defaultdict
 from PIL import Image
